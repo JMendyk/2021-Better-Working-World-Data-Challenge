@@ -45,14 +45,14 @@ if ! [[ $LOCAL = "true" ]]; then
   echo "Starting CUDA installation"
 
   CUDA_REPO_PKG=cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
-  try sudo apt-get update && sudo apt-get install -y gnupg2
-  try sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+  try apt-get update && apt-get install -y gnupg2
+  try apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
   try wget -O /tmp/${CUDA_REPO_PKG} https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/${CUDA_REPO_PKG}
-  sudo dpkg -i /tmp/${CUDA_REPO_PKG}
+  dpkg -i /tmp/${CUDA_REPO_PKG}
 
   # RUN rm -f /tmp/${CUDA_REPO_PKG}
-  try sudo apt-get update
-  try sudo apt-get install -y cuda-drivers-460
+  try apt-get update
+  try apt-get install -y cuda-drivers-460
 
   echo "CUDA installation end"
 
