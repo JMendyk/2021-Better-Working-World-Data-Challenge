@@ -194,12 +194,12 @@
       },
       "resources": [
         {
-          "name": "[concat(variables('vmName'),'/GPU_Extension')]",
-          "type": "extensions",
+          "type": "Microsoft.Compute/virtualMachines/extensions",
           "apiVersion": "2015-06-15",
-          "location": "<location>",
+          "name": "[concat(variables('vmName'),'/GPU_Extension')]",
+          "location": "[variables('Region')]",
           "dependsOn": [
-            "[concat('Microsoft.Compute/virtualMachines/', <myVM>)]"
+            "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]"
           ],
           "properties": {
             "publisher": "Microsoft.HpcCompute",
@@ -216,7 +216,8 @@
           "name": "[concat(variables('vmName'),'/installscript')]",
           "location": "[variables('Region')]",
           "dependsOn": [
-            "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]"
+            "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]",
+            "[resourceId('Microsoft.Compute/virtualMachines/extensions', concat(variables('vmName'),'/GPU_Extension'))]"
           ],
           "tags": {
             "displayName": "Execute my custom script"
