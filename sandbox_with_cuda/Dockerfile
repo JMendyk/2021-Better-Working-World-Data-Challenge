@@ -16,7 +16,7 @@ RUN dpkg -i /tmp/${CUDA_REPO_PKG}
 
 # RUN rm -f /tmp/${CUDA_REPO_PKG}
 RUN apt-get update
-RUN apt-get install -y cuda-drivers-460
+RUN apt-get install -y cuda-drivers-450
 
 USER $nb_user
 
