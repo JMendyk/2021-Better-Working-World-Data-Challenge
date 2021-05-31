@@ -42,19 +42,27 @@ if ! [[ $LOCAL = "true" ]]; then
   try pip3 install --upgrade pip
   try pip3 install docker-compose
 
-  echo "Starting CUDA installation"
+  # echo "Starting CUDA installation"
 
-  CUDA_REPO_PKG=cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
-  try apt-get update && apt-get install -y gnupg2
-  try apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-  try wget -O /tmp/${CUDA_REPO_PKG} https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/${CUDA_REPO_PKG}
-  dpkg -i /tmp/${CUDA_REPO_PKG}
+  # CUDA_REPO_PKG=cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
+  # try apt-get update && apt-get install -y gnupg2
+  # try apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+  # try wget -O /tmp/${CUDA_REPO_PKG} https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/${CUDA_REPO_PKG}
+  # dpkg -i /tmp/${CUDA_REPO_PKG}
 
-  # RUN rm -f /tmp/${CUDA_REPO_PKG}
-  try apt-get update
-  try apt-get install -y cuda-drivers-450
+  # try curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add -
+  # distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+  # try curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+  # # apt-get update
 
-  echo "CUDA installation end"
+  # # RUN rm -f /tmp/${CUDA_REPO_PKG}
+  # try apt-get update
+  # try apt-get install -y cuda-drivers-450 nvidia-container-runtime nvidia-container-toolkit
+
+  # # rmmod nvidia
+  # # nvidia-smi
+
+  # echo "CUDA installation end"
 
   # Get our code
   url=https://codeload.github.com/JMendyk/2021-Better-Working-World-Data-Challenge/zip/main

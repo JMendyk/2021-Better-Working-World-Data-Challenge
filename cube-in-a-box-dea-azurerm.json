@@ -194,6 +194,23 @@
       },
       "resources": [
         {
+          "name": "[concat(variables('vmName'),'/GPU_Extension')]",
+          "type": "extensions",
+          "apiVersion": "2015-06-15",
+          "location": "<location>",
+          "dependsOn": [
+            "[concat('Microsoft.Compute/virtualMachines/', <myVM>)]"
+          ],
+          "properties": {
+            "publisher": "Microsoft.HpcCompute",
+            "type": "NvidiaGpuDriverLinux",
+            "typeHandlerVersion": "1.3",
+            "autoUpgradeMinorVersion": true,
+            "settings": {
+            }
+          }
+        },
+        {
           "type": "Microsoft.Compute/virtualMachines/extensions",
           "apiVersion": "2019-07-01",
           "name": "[concat(variables('vmName'),'/installscript')]",
