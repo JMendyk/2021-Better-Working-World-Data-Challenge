@@ -42,6 +42,20 @@ if ! [[ $LOCAL = "true" ]]; then
   try pip3 install --upgrade pip
   try pip3 install docker-compose
 
+  echo "Starting CUDA installation"
+
+  CUDA_REPO_PKG=cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
+  try sudo apt-get update && sudo apt-get install -y gnupg2
+  try sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+  try wget -O /tmp/${CUDA_REPO_PKG} https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/${CUDA_REPO_PKG}
+  sudo dpkg -i /tmp/${CUDA_REPO_PKG}
+
+  # RUN rm -f /tmp/${CUDA_REPO_PKG}
+  try sudo apt-get update
+  try sudo apt-get install -y cuda-drivers-460
+
+  echo "CUDA installation end"
+
   # Get our code
   url=https://codeload.github.com/JMendyk/2021-Better-Working-World-Data-Challenge/zip/main
   try wget $url -O /tmp/archive.zip 
@@ -56,25 +70,12 @@ if ! [[ $LOCAL = "true" ]]; then
   cd /opt/odc
 
   # Start the machines
+  docker-compose build
   docker-compose up -d
 
   # Wait for them to wake up
   sleep 20
 fi
-
-echo "Starting CUDA installation"
-
-CUDA_REPO_PKG=cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
-try apt-get update && apt-get install -y gnupg2
-try apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-try wget -O /tmp/${CUDA_REPO_PKG} https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/${CUDA_REPO_PKG}
-dpkg -i /tmp/${CUDA_REPO_PKG}
-
-# RUN rm -f /tmp/${CUDA_REPO_PKG}
-try apt-get update
-try apt-get install -y cuda-drivers-460
-
-echo "CUDA installation end"
 
 # Initialise and load a product, and then some data
 # Note to future self, we can't use make here because of TTY interactivity (the -T flag)
