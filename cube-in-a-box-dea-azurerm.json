@@ -195,7 +195,8 @@
       "resources": [
         {
           "type": "Microsoft.Compute/virtualMachines/extensions",
-          "apiVersion": "2015-06-15",
+          // "apiVersion": "2015-06-15",
+          "apiVersion": "2020-12-01",
           "name": "[concat(variables('vmName'),'/GPU_Extension')]",
           "location": "[variables('Region')]",
           "dependsOn": [
@@ -217,7 +218,7 @@
           "location": "[variables('Region')]",
           "dependsOn": [
             "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]",
-            "[resourceId('Microsoft.Compute/virtualMachines/extensions', concat(variables('vmName'),'/GPU_Extension'))]"
+            "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'), '/extensions/GPU_Extension')]"
           ],
           "tags": {
             "displayName": "Execute my custom script"
