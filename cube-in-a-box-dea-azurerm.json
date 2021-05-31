@@ -214,14 +214,14 @@
         {
           "type": "Microsoft.Compute/virtualMachines/extensions",
           "apiVersion": "2019-07-01",
-          "name": "[concat(variables('vmName'),'/installscript')]",
+          "name": "[concat(variables('vmName'),'/install_dependencies')]",
           "location": "[variables('Region')]",
           "dependsOn": [
             "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]",
             "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'), '/extensions/GPU_Extension')]"
           ],
           "tags": {
-            "displayName": "Execute my custom script"
+            "displayName": "Install Nvidia Container Runtime and Docker"
           },
           "properties": {
             "publisher": "Microsoft.Azure.Extensions",
@@ -230,9 +230,9 @@
             "autoUpgradeMinorVersion": true,
             "protectedSettings": {
               "fileUris": [
-                "https://raw.githubusercontent.com/JMendyk/2021-Better-Working-World-Data-Challenge/main/install-cube.sh"
+                "https://raw.githubusercontent.com/JMendyk/2021-Better-Working-World-Data-Challenge/main/install-dependencies.sh"
               ],
-              "commandToExecute": "[concat('bash install-cube.sh ', parameters('SecretPassword'), ' 2>&1 | tee -a /var/log/install-cube.log')]"
+              "commandToExecute": "[concat('bash install-dependencies.sh ', parameters('SecretPassword'), ' 2>&1 | tee -a /var/log/install-dependencies.log')]"
             }
           }
         }

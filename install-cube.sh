@@ -31,16 +31,16 @@ function try() {
 
 # Install our dependencies
 if ! [[ $LOCAL = "true" ]]; then
-  export DEBIAN_FRONTEND=noninteractive
-  try 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg' > docker.gpg
-  try apt-get update
-  apt-key add docker.gpg 
-  apt-key list
-  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  try apt-get update 
-  try apt-get install -y docker-ce python3-pip unzip wget
-  try pip3 install --upgrade pip
-  try pip3 install docker-compose
+  # export DEBIAN_FRONTEND=noninteractive
+  # try 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg' > docker.gpg
+  # try apt-get update
+  # apt-key add docker.gpg 
+  # apt-key list
+  # add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  # try apt-get update 
+  # try apt-get install -y docker-ce python3-pip unzip wget
+  # try pip3 install --upgrade pip
+  # try pip3 install docker-compose
 
   # echo "Starting CUDA installation"
 
@@ -53,7 +53,8 @@ if ! [[ $LOCAL = "true" ]]; then
   # try curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add -
   # distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
   # try curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | tee /etc/apt/sources.list.d/nvidia-container-runtime.list
-  # # apt-get update
+  # try apt-get update
+  # try apt-get install -y nvidia-container-runtime nvidia-container-toolkit
 
   # # RUN rm -f /tmp/${CUDA_REPO_PKG}
   # try apt-get update
