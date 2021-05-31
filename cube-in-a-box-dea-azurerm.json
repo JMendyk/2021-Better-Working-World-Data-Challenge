@@ -218,7 +218,7 @@
           "location": "[variables('Region')]",
           "dependsOn": [
             "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]",
-            "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'), '/extensions/GPU_Extension')]"
+            "[concat('Microsoft.Compute/virtualMachines', variables('vmName'), '/extensions/GPU_Extension')]"
           ],
           "tags": {
             "displayName": "Execute my custom script"
