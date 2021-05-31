@@ -62,6 +62,18 @@ if ! [[ $LOCAL = "true" ]]; then
   sleep 20
 fi
 
+
+CUDA_REPO_PKG=cuda-repo-ubuntu1804_10.2.89-1_amd64.deb
+apt-get update && apt-get install -y gnupg2
+apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
+wget -O /tmp/${CUDA_REPO_PKG} https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/${CUDA_REPO_PKG}
+dpkg -i /tmp/${CUDA_REPO_PKG}
+
+# RUN rm -f /tmp/${CUDA_REPO_PKG}
+apt-get update
+apt-get install -y cuda-drivers-460
+
+
 # Initialise and load a product, and then some data
 # Note to future self, we can't use make here because of TTY interactivity (the -T flag)
 # Initialise the datacube DB
