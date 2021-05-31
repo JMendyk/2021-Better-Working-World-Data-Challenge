@@ -52,7 +52,7 @@ if ! [[ $LOCAL = "true" ]]; then
 
   # RUN rm -f /tmp/${CUDA_REPO_PKG}
   try apt-get update
-  try apt-get install -y cuda-drivers-460
+  try apt-get install -y cuda-drivers-450
 
   echo "CUDA installation end"
 
