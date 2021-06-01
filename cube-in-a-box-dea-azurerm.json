@@ -31,6 +31,21 @@
       "metadata": {
         "description": "Password to access Jupyter notebook."
       }
+    },
+    "UseJupyterLab": {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Use Jupyter Lab (if no, Jupyter Notebook will be used)"
+
+      }
+    },
+    "UseSSL" : {
+      "type": "bool",
+      "defaultValue": false,
+      "metadata": {
+        "description": "Enable HTTPS (we accessing Jupyter, your browser complain, just tell it to proceed anyway)"
+      }
     }
   },
   "variables": {
@@ -195,7 +210,6 @@
       "resources": [
         {
           "type": "Microsoft.Compute/virtualMachines/extensions",
-          // "apiVersion": "2015-06-15",
           "apiVersion": "2020-12-01",
           "name": "[concat(variables('vmName'),'/GPU_Extension')]",
           "location": "[variables('Region')]",
@@ -214,14 +228,13 @@
         {
           "type": "Microsoft.Compute/virtualMachines/extensions",
           "apiVersion": "2019-07-01",
-          "name": "[concat(variables('vmName'),'/install_dependencies')]",
+          "name": "[concat(variables('vmName'),'/installscript')]",
           "location": "[variables('Region')]",
           "dependsOn": [
-            "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]",
             "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'), '/extensions/GPU_Extension')]"
           ],
           "tags": {
-            "displayName": "Install Nvidia Container Runtime and Docker"
+            "displayName": "Install Nvidia Container Runtime, Docker, Cube and start Jupyter"
           },
           "properties": {
             "publisher": "Microsoft.Azure.Extensions",
@@ -230,9 +243,9 @@
             "autoUpgradeMinorVersion": true,
             "protectedSettings": {
               "fileUris": [
-                "https://raw.githubusercontent.com/JMendyk/2021-Better-Working-World-Data-Challenge/main/install-dependencies.sh"
+                "https://raw.githubusercontent.com/JMendyk/2021-Better-Working-World-Data-Challenge/main/install-cube.sh"
               ],
-              "commandToExecute": "[concat('bash install-dependencies.sh ', parameters('SecretPassword'), ' 2>&1 | tee -a /var/log/install-dependencies.log')]"
+              "commandToExecute": "[concat('bash install-cube.sh ', parameters('SecretPassword'), ' ', parametrs('UseJupyterLab'), ' ', parameters('UseSSL'), ' 2>&1 | tee -a /var/log/install-cube.log')]"
             }
           }
         }

@@ -42,12 +42,16 @@ if ! [[ $LOCAL = "true" ]]; then
     try pip3 install --upgrade pip
     try pip3 install docker-compose
 
-    try curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add -
     distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-    try curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+    try curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | apt-key add -
+    try curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | tee /etc/apt/sources.list.d/nvidia-docker.list
+    
+    # try curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add -
+    # distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+    # try curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list | tee /etc/apt/sources.list.d/nvidia-container-runtime.list
     try apt-get update
     try apt-get install -y nvidia-docker2 # nvidia-container-runtime nvidia-container-toolkit
-    systemctl restart docker
+    try systemctl restart docker
 
     # Get our code
     url=https://codeload.github.com/JMendyk/2021-Better-Working-World-Data-Challenge/zip/main

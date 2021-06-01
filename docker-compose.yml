@@ -18,23 +18,19 @@ services:
       - DB_USERNAME=opendatacube
       - DB_PASSWORD=opendatacubepassword
       - DB_DATABASE=opendatacube
-#      - AWS_NO_SIGN_REQUEST=true
-#      - AWS_DEFAULT_REGION=ap-southeast-2
+      - AWS_NO_SIGN_REQUEST=true
+      - AWS_DEFAULT_REGION=ap-southeast-2
       - JUPYTER_ALLOW_INSECURE_WRITES=true
     ports:
-      - "8888:8888"
+      - "80:8888"
     volumes:
       - ./install-cube.sh:/usr/local/bin/install-cube.sh
       - ./scripts:/scripts
       - ./notebooks:/home/jovyan
-      - ./example.crt:/home/jovyan/example.crt
-      - ./example.key:/home/jovyan/example.key
     depends_on:
       - postgres
     restart: always
-    ### Remove --keyfile and --certfile options to disable HTTPS
-    command: jupyter lab --allow-root --ip=0.0.0.0 --no-browser --NotebookApp.token='secretpassword' --NotebookApp.allow_origin=* --NotebookApp.allow_remote_access=True --keyfile=example.key --certfile=example.crt
-    # command: nvidia-smi
+    command: __JUPYTER_CMD__ --allow-root --ip="0.0.0.0" --no-browser --NotebookApp.token='secretpassword' __OPTS__
     deploy:
       resources:
         reservations:
