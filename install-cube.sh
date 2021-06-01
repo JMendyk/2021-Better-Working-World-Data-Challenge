@@ -32,6 +32,8 @@ function try() {
   done
 }
 
+echo "Use Lab ${USE_JUPYTER_LAB}, use SSL ${USE_SSL}"
+
 # Install our dependencies
 if ! [[ $LOCAL = "true" ]]; then
   export DEBIAN_FRONTEND=noninteractive
