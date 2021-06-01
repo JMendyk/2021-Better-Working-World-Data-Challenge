@@ -231,6 +231,7 @@
           "name": "[concat(variables('vmName'),'/installscript')]",
           "location": "[variables('Region')]",
           "dependsOn": [
+            "[resourceId('Microsoft.Compute/virtualMachines', variables('vmName'))]",
             "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'), '/extensions/GPU_Extension')]"
           ],
           "tags": {
